@@ -26,6 +26,4 @@ public interface DriverService
 
     DriverDO unselectCar(DriverDO driverDO, CarDO carDO) throws CarAlreadyInUseException;
 
-    //DriverDO findByCar(Long carID);
-
 }

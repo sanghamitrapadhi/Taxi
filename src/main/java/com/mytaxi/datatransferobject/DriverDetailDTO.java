@@ -6,9 +6,7 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.domainvalue.GeoCoordinate;
-import com.mytaxi.domainvalue.OnlineStatus;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DriverDetailDTO
@@ -22,14 +20,7 @@ public class DriverDetailDTO
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateCoordinateUpdated;
     private Boolean deleted;
-    private OnlineStatus onlineStatus;
-    private EngineType engineType;
-    private Long carId;
-    private Boolean isBooked;
-    private String licensePlate;
-    private Integer rating;
-    private Integer seatCount;
-
+    private String onlineStatus;
 
     private DriverDetailDTO()
     {}
@@ -37,7 +28,7 @@ public class DriverDetailDTO
 
     public DriverDetailDTO(
         Long driverId, String username, String password, GeoCoordinate coordinate, ZonedDateTime dateCreated, ZonedDateTime dateCoordinateUpdated, Boolean deleted,
-        OnlineStatus onlineStatus, EngineType engineType, Long carId, Boolean isBooked, String licensePlate, Integer rating, Integer seatCount)
+        String onlineStatus)
     {
         super();
         this.driverId = driverId;
@@ -47,13 +38,7 @@ public class DriverDetailDTO
         this.dateCreated = dateCreated;
         this.dateCoordinateUpdated = dateCoordinateUpdated;
         this.deleted = deleted;
-        this.onlineStatus = onlineStatus;
-        this.engineType = engineType;
-        this.carId = carId;
-        this.isBooked = isBooked;
-        this.licensePlate = licensePlate;
-        this.rating = rating;
-        this.seatCount = seatCount;
+        this.onlineStatus=onlineStatus;
     }
 
 
@@ -109,48 +94,13 @@ public class DriverDetailDTO
     {
         return deleted;
     }
-
-
-    public OnlineStatus getOnlineStatus()
+    
+    public String getOnlineStatus()
     {
         return onlineStatus;
     }
 
 
-    public EngineType getEngineType()
-    {
-        return engineType;
-    }
-
-
-    public Long getCarId()
-    {
-        return carId;
-    }
-
-
-    public Boolean getIsBooked()
-    {
-        return isBooked;
-    }
-
-
-    public String getLicensePlate()
-    {
-        return licensePlate;
-    }
-
-
-    public Integer getRating()
-    {
-        return rating;
-    }
-
-
-    public Integer getSeatCount()
-    {
-        return seatCount;
-    }
 
     public static class DriverDetailDTOBuilder
     {
@@ -161,13 +111,7 @@ public class DriverDetailDTO
         private ZonedDateTime dateCreated;
         private ZonedDateTime dateCoordinateUpdated;
         private Boolean deleted;
-        private OnlineStatus onlineStatus;
-        private EngineType engineType;
-        private Long carId;
-        private Boolean isBooked;
-        private String licensePlate;
-        private Integer rating;
-        private Integer seatCount;
+        private String onlineStatus;
 
 
         public DriverDetailDTOBuilder setDriverId(Long driverId)
@@ -220,51 +164,9 @@ public class DriverDetailDTO
         }
 
 
-        public DriverDetailDTOBuilder setOnlineStatus(OnlineStatus onlineStatus)
+        public DriverDetailDTOBuilder setOnlineStatus(String onlineStatus)
         {
             this.onlineStatus = onlineStatus;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setEngineType(EngineType engineType)
-        {
-            this.engineType = engineType;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setCarId(Long carId)
-        {
-            this.carId = carId;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setIsBooked(Boolean isBooked)
-        {
-            this.isBooked = isBooked;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setLicensePlate(String licensePlate)
-        {
-            this.licensePlate = licensePlate;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setRating(Integer rating)
-        {
-            this.rating = rating;
-            return this;
-        }
-
-
-        public DriverDetailDTOBuilder setSeatCount(Integer seatCount)
-        {
-            this.seatCount = seatCount;
             return this;
         }
 
@@ -272,7 +174,7 @@ public class DriverDetailDTO
         public DriverDetailDTO createDriverDetailDTO()
         {
             return new DriverDetailDTO(
-                driverId, username, password, coordinate, dateCreated, dateCoordinateUpdated, deleted, onlineStatus, engineType, carId, isBooked, licensePlate, rating, seatCount);
+                driverId, username, password, coordinate, dateCreated, dateCoordinateUpdated, deleted, onlineStatus);
         }
 
     }

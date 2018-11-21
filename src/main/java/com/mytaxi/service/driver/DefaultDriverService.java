@@ -18,7 +18,6 @@ import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.CarAlreadyInUseException;
 import com.mytaxi.exception.ConstraintsViolationException;
 import com.mytaxi.exception.EntityNotFoundException;
-import com.mytaxi.service.car.CarService;
 
 /**
  * Service to encapsulate the link between DAO and controller and to have business logic for some driver specific things.
@@ -33,10 +32,11 @@ public class DefaultDriverService implements DriverService, DriverDetailService
     private final DriverRepository driverRepository;
     private final VDriverDetailRepository driverDetailRepository;
 
+
     public DefaultDriverService(final DriverRepository driverRepository, final VDriverDetailRepository driverDetailrepository)
     {
         this.driverRepository = driverRepository;
-        this.driverDetailRepository=driverDetailrepository;
+        this.driverDetailRepository = driverDetailrepository;
     }
 
 
@@ -128,6 +128,7 @@ public class DefaultDriverService implements DriverService, DriverDetailService
             .orElseThrow(() -> new EntityNotFoundException("Could not find entity with id: " + driverId));
     }
 
+
     /**
      * Selects driver with a car.
      *@param licensePlate
@@ -169,7 +170,7 @@ public class DefaultDriverService implements DriverService, DriverDetailService
             driverDO.setCarDO(null);
             carDO.setIsBooked(Boolean.FALSE);
         }
-        else if(driverDO.getCarDO() == null)
+        else if (driverDO.getCarDO() == null)
         {
             throw new CarAlreadyInUseException("Driver with id- " + driverDO.getId() + ", needs to select a car before unselecting");
         }
@@ -183,16 +184,16 @@ public class DefaultDriverService implements DriverService, DriverDetailService
 
     /**
      * Selects driver with all car and driver attributes.
-     * @param licenseType
-     * @return driverDO
+     * @param licensePlate, deleted, onlineStatus, username, carId, engineType, isBooked, rating, seatCount
+     * @return VDriverDetailDO
      * 
      * */
     @Override
-    public List<VDriverDetailDO> find(String licensePlate, OnlineStatus onlineStatus )
+    public List<VDriverDetailDO> find(String licensePlate, String deleted, String onlineStatus, String username, String carId,
+        String engineType, String isBooked, String rating, String seatCount)
     {
-        // TODO Auto-generated method stub
-        return driverDetailRepository.findDrivers(licensePlate, onlineStatus);
-            //, deleted, onlineStatus, username, carId, engineType, isBooked, rating, seatCount, driverId);
+        return driverDetailRepository.findDrivers(licensePlate, deleted, onlineStatus, username,
+            carId, engineType, isBooked, rating, seatCount);
     }
 
 }

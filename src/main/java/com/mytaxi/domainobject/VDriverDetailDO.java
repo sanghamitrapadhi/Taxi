@@ -4,20 +4,14 @@ import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.Subselect;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.domainvalue.GeoCoordinate;
-import com.mytaxi.domainvalue.OnlineStatus;
 
 @Entity
 @Table(name = "V_DRIVER_DETAILS")
@@ -48,12 +42,10 @@ public class VDriverDetailDO
     private Boolean deleted;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private OnlineStatus onlineStatus;
+    private String onlineStatus;
     
     @Column
-    @Enumerated(EnumType.STRING)
-    private EngineType engineType;
+    private String engineType;
 
     @Column
     private Boolean isBooked;
@@ -144,22 +136,22 @@ public class VDriverDetailDO
         this.deleted = deleted;
     }
 
-    public OnlineStatus getOnlineStatus()
+    public String getOnlineStatus()
     {
         return onlineStatus;
     }
 
-    public void setOnlineStatus(OnlineStatus onlineStatus)
+    public void setOnlineStatus(String onlineStatus)
     {
         this.onlineStatus = onlineStatus;
     }
 
-    public EngineType getEngineType()
+    public String getEngineType()
     {
         return engineType;
     }
 
-    public void setEngineType(EngineType engineType)
+    public void setEngineType(String engineType)
     {
         this.engineType = engineType;
     }

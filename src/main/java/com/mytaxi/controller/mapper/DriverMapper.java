@@ -37,25 +37,18 @@ public class DriverMapper
     public static DriverDetailDTO makeDriverDetailDTO(VDriverDetailDO driverDetailDO)
     {
         DriverDetailDTO.DriverDetailDTOBuilder driverDetailDTOBuilder = DriverDetailDTO.newBuilder()
-            .setCarId(driverDetailDO.getCarId())
             .setDateCreated(driverDetailDO.getDateCreated())
             .setDeleted(driverDetailDO.getDeleted())
             .setDriverId(driverDetailDO.getDriverId())
-            .setEngineType(driverDetailDO.getEngineType())
-            .setIsBooked(driverDetailDO.getIsBooked())
-            .setUsername(driverDetailDO.getUsername())
             .setOnlineStatus(driverDetailDO.getOnlineStatus())
-            .setSeatCount(driverDetailDO.getSeatCount())
-            .setLicensePlate(driverDetailDO.getLicensePlate());
+            .setUsername(driverDetailDO.getUsername())
+            .setOnlineStatus(driverDetailDO.getOnlineStatus());
 
         if (driverDetailDO.getDateCoordinateUpdated() != null)
         {
             driverDetailDTOBuilder.setDateCoordinateUpdated(driverDetailDO.getDateCoordinateUpdated());
         }
-        if (driverDetailDO.getRating() != null)
-        {
-            driverDetailDTOBuilder.setRating(driverDetailDO.getRating());
-        }
+
         GeoCoordinate coordinate = driverDetailDO.getCoordinate();
         if (coordinate != null)
         {

@@ -6,37 +6,34 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainobject.VDriverDetailDO;
-import com.mytaxi.domainvalue.EngineType;
-import com.mytaxi.domainvalue.OnlineStatus;
 
 /**
- * Database Access Object for driver table.
+ * Database Access Object for driver detail view.
  * <p/>
  */
 public interface VDriverDetailRepository extends CrudRepository<VDriverDetailDO, Long>
 {
 
-    List<DriverDO> findByOnlineStatus(OnlineStatus onlineStatus);
-    
-    @Query(
-        value = "SELECT * FROM V_DRIVER_DETAILS v WHERE "
-            + " coalesce(v.license_plate, '%%') like :licensePlate "
-            //+ "( and cast(coalesce(v.deleted, '%%') as string) like :deleted )",
-            + " and cast(coalesce(v.online_status, '%%') as string) like :onlineStatus )",
-          //  + "( and v.online_status like nvl(:onlineStatus,'%'))", 
-        nativeQuery = true)
+    @Query(value = "SELECT * FROM V_DRIVER_DETAILS v WHERE "
+        + " coalesce(v.license_plate, '%%') like :licensePlate "
+        + " and to_char(v.deleted) like :deleted "
+        + " and v.online_status like :onlineStatus "
+        + " and coalesce(v.username, '%%') like :username "
+        + " and coalesce(to_char(v.car_id), '%%') like :carId "
+        + " and coalesce(v.engine_type, '%%') like :engineType "
+        + " and coalesce(to_char(v.is_booked), '%%') like :isBooked "
+        + " and coalesce(to_char(v.rating), '%%') like :rating "
+        + " and coalesce(to_char(v.seat_count), '%%') like :seatCount ", nativeQuery = true)
+
     List<VDriverDetailDO> findDrivers(
         @Param("licensePlate") String licensePlate,
-        //@Param("deleted") String deleted
-        @Param("onlineStatus") OnlineStatus onlineStatus
-        //@Param("username") String username,
-        //@Param("carId") Long carId,
-        //@Param("onlineStatus") EngineType engineType,
-        //@Param("isBooked") Boolean isBooked,
-        //@Param("rating") Integer rating,  
-        //@Param("seatCount") Integer seatCount,
-        //@Param("driverId") Long driverId
-        );
+        @Param("deleted") String deleted,
+        @Param("onlineStatus") String onlineStatus,
+        @Param("username") String username,
+        @Param("carId") String carId,
+        @Param("engineType") String engineType,
+        @Param("isBooked") String isBooked,
+        @Param("rating") String rating,
+        @Param("seatCount") String seatCount);
 }

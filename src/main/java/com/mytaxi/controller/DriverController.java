@@ -1,12 +1,10 @@
 package com.mytaxi.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,6 @@ import com.mytaxi.datatransferobject.DriverDetailDTO;
 import com.mytaxi.domainobject.CarDO;
 import com.mytaxi.domainobject.DriverDO;
 import com.mytaxi.domainobject.VDriverDetailDO;
-import com.mytaxi.domainvalue.EngineType;
 import com.mytaxi.domainvalue.MapStatus;
 import com.mytaxi.domainvalue.OnlineStatus;
 import com.mytaxi.exception.CarAlreadyInUseException;
@@ -134,19 +131,18 @@ public class DriverController
 
 
     @GetMapping("v1/search")
-
-    public List<DriverDetailDTO> search(@RequestParam(required = false, defaultValue="%") String licensePlate,
-            //@RequestParam(required = false, defaultValue="FALSE") String deleted
-            @RequestParam(required = false, defaultValue ="ONLINE") OnlineStatus onlineStatus
-    //@RequestParam(required = false) String username,
-    //@RequestParam(required = false) Long carId,
-    //@RequestParam(required = false) EngineType engineType,
-    //@RequestParam(required = false) Boolean isBooked,
-    //@RequestParam(required = false) Integer rating,
-    //@RequestParam(required = false) Integer seatCount
-    )
+    public List<DriverDetailDTO> search(@RequestParam(required = false, defaultValue = "%") String licensePlate,
+        @RequestParam(required = false, defaultValue = "%") String deleted,
+        @RequestParam(required = false, defaultValue = "%") String onlineStatus,
+        @RequestParam(required = false, defaultValue = "%") String username,
+        @RequestParam(required = false, defaultValue = "%") String carId,
+        @RequestParam(required = false, defaultValue = "%") String engineType,
+        @RequestParam(required = false, defaultValue = "%") String isBooked,
+        @RequestParam(required = false, defaultValue = "%") String rating,
+        @RequestParam(required = false, defaultValue = "%") String seatCount)
     {
-        List<VDriverDetailDO> view =driverDetailService.find(licensePlate, onlineStatus);
+        List<VDriverDetailDO> view = driverDetailService.find(licensePlate, deleted, onlineStatus, username, carId,
+            engineType, isBooked, rating, seatCount);
         return DriverMapper.makeDriverDetailList(view);
     }
 
